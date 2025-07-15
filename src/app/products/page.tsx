@@ -6,6 +6,16 @@ import api from "@/api/api";
 import Link from "next/link";
 import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material";
 
+interface ProductForm {
+  id: string,
+  title: string,
+  price: number,
+  category: string,
+  thumbnail: string,
+  description: string,
+  stock: number,
+}
+
 const ListProducts = () => {
   const [products, setProducts] = useState<Products[]>([]);
 
@@ -16,7 +26,7 @@ const ListProducts = () => {
       setProducts(JSON.parse(localData));
     } else {
       api.get("/products").then((res) => {
-        const formatted: Products[] = res.data.products.map((item: any) => ({
+        const formatted: Products[] = res.data.products.map((item: ProductForm) => ({
           id: item.id.toString(),
           name: item.title,
           price: item.price,

@@ -18,6 +18,14 @@ const schema = yup.object().shape({
   thumbnail: yup.string().required('Image is required'),
 });
 
+interface ProductForm {
+  title: string,
+  price: number,
+  thumbnail: string,
+  description: string,
+}
+
+
 const AddProduct = () => {
   const router = useRouter();
 
@@ -25,7 +33,7 @@ const AddProduct = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: ProductForm) => {
     const newProduct : Products = {
       id: `local-${Date.now()}`,
       name: data.title,

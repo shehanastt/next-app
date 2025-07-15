@@ -18,6 +18,13 @@ const schema = yup.object().shape({
   thumbnail: yup.string().required("Image is required"),
 });
 
+interface ProductForm {
+  title: string,
+  price: number,
+  thumbnail: string,
+  description: string,
+}
+
 const UpdateProduct = () => {
   const params = useParams();
   const id = params?.id?.toString();
@@ -45,7 +52,7 @@ const UpdateProduct = () => {
     }
   }, [id, setValue, router]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: ProductForm) => {
     const allProducts: Products[] = JSON.parse(localStorage.getItem("allProducts") || "[]");
     const updatedList = allProducts.map((p) =>
       p.id.toString() === id
